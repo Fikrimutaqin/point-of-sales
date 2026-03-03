@@ -34,3 +34,23 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## Catatan Struktur Folder
+
+- app/ — routing dan halaman (App Router Next.js).
+- services/
+  - http/ — klien HTTP berbasis fetch; satu pintu untuk GET/POST/PUT/DELETE.
+  - usecases/ — logic bisnis per domain (misal: products) berisi operasi get/create/update/delete.
+- components/
+  - common/ — komponen global yang reusable lintas halaman (misal: Button).
+  - local/ — komponen sekali pakai spesifik halaman/fitur (misal: SampleCard).
+- hooks/ — React hooks reusable (misal: useDisclosure).
+- utils/ — fungsi utilitas non-UI (misal: formatCurrency).
+- types/ — definisi tipe global yang dipakai lintas modul (misal: Product).
+
+### Prinsip Penempatan
+
+- Logic bisnis tidak di dalam komponen; tempatkan di `services/usecases/<domain>`.
+- Semua akses HTTP melalui `services/http` agar mudah diganti/mocking.
+- Komponen reusable taruh di `components/common`; yang spesifik fitur taruh di `components/local`.
+- Gunakan alias import `@/` sesuai `tsconfig.json` untuk path yang rapi.
