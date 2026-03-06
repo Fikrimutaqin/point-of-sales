@@ -26,11 +26,9 @@ export default function LoginSection() {
 
   /// Sign In Form
   const { onSubmit, loading, error } = useSignIn({
-    onSuccess: () => router.push("/dashboard"),
+    onSuccess: () => router.push("/home"),
   });
-
   
-
   return (
     <>
       <Card className="w-full max-w-sm">

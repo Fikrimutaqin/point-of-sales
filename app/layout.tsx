@@ -31,7 +31,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable}`}
       >
-        <main className="mx-auto min-h-screen max-w-5xl p-6">{children}</main>
+        <main className="w-full flex flex-col">{children}</main>
       </body>
     </html>
   );
