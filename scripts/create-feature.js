@@ -60,7 +60,7 @@ async function main() {
 
   const cwd = process.cwd();
   // Domain-level folder per feature group
-  const featureRoot = path.join(cwd, "features", groupSlug);
+  // const featureRoot = path.join(cwd, "features", groupSlug);
   // Route group named after feature group, URL does not include parentheses
   const appRouteDir = path.join(cwd, "app", `(${groupSlug})`, routeSlug);
 
@@ -82,17 +82,17 @@ async function main() {
     `  );\n` +
     `}\n`;
 
-  const pageFile = path.join(appRouteDir, "page.tsx");
-  const pageContent =
-    `import ${groupPascal}Section from "@/features/${groupSlug}/components/${groupPascal}Section";\n` +
-    `export default function Page() {\n` +
-    `  return (\n` +
-    `    <div className="space-y-4">\n` +
-    `      <h1 className="text-xl font-semibold">${toPascal(routeSlug)}</h1>\n` +
-    `      <${groupPascal}Section />\n` +
-    `    </div>\n` +
-    `  );\n` +
-    `}\n`;
+  // const pageFile = path.join(appRouteDir, "page.tsx");
+  // const pageContent =
+  //   `import ${groupPascal}Section from "@/features/${groupSlug}/components/${groupPascal}Section";\n` +
+  //   `export default function Page() {\n` +
+  //   `  return (\n` +
+  //   `    <div className="space-y-4">\n` +
+  //   `      <h1 className="text-xl font-semibold">${toPascal(routeSlug)}</h1>\n` +
+  //   `      <${groupPascal}Section />\n` +
+  //   `    </div>\n` +
+  //   `  );\n` +
+  //   `}\n`;
 
   const barrelFiles = [
     path.join(featureRoot, "components", "index.ts"),
@@ -111,7 +111,7 @@ async function main() {
 
   console.log(`Created feature "${groupSlug}/${routeSlug}".`);
   console.log(`- features/${groupSlug}`);
-  console.log(`- app/(${groupSlug})/${routeSlug}/page.tsx`);
+  // console.log(`- app/(${groupSlug})/${routeSlug}/page.tsx`);
 }
 
 main().catch((e) => {
