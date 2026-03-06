@@ -17,11 +17,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* Initial theme script */}
+        <script
+          id="theme-init"
+          dangerouslySetInnerHTML={{
+            __html:
+              `(function(){try{var d=document.documentElement;var s=localStorage.getItem('theme');var m=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;var pref = s ? s : (m ? 'dark' : 'light'); if(pref==='dark'){d.classList.add('dark'); d.classList.remove('light');}else{d.classList.add('light'); d.classList.remove('dark');}}catch(e){}})();`,
+          }}
+        />
+      </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable}`}
       >
-         <main className="mx-auto max-w-5xl p-6">{children}</main>
+        <main className="mx-auto min-h-screen max-w-5xl p-6">{children}</main>
       </body>
     </html>
   );

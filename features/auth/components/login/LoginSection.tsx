@@ -16,22 +16,32 @@ import {
 import { Input } from "@/shared/components/ui/input"
 import { Label } from "@/shared/components/ui/label"
 import { Alert, AlertDescription, AlertTitle } from "@/shared/components/ui/alert"
+import { ThemeToggle } from "@/shared/components/ui/theme-toggle"
 // Icon
 import { CheckCircle2Icon } from "lucide-react"
 
 export default function LoginSection() {
+  /// Router
   const router = useRouter();
+
+  /// Sign In Form
   const { onSubmit, loading, error } = useSignIn({
     onSuccess: () => router.push("/dashboard"),
   });
+
+  
+
   return (
     <>
       <Card className="w-full max-w-sm">
-        <CardHeader className="flex">
-          <CardTitle>Login to your account</CardTitle>
-          <CardDescription>
-            Enter your email below to login to your account
-          </CardDescription>
+        <CardHeader className="flex flex-row w-full items-start justify-between">
+          <div className="flex flex-col gap-2">
+            <CardTitle>Login to your account</CardTitle>
+            <CardDescription>
+              Enter your email below to login to your account
+            </CardDescription>
+          </div>
+          <ThemeToggle />
         </CardHeader>
         <CardContent>
           <form onSubmit={onSubmit} id="login-form">
@@ -62,7 +72,7 @@ export default function LoginSection() {
         </CardFooter>
       </Card>
       {error && (
-        <div className="absolute bottom-5 right-0 w-sm">
+        <div className="absolute bottom-5 right-5 w-sm">
           <Alert>
             <CheckCircle2Icon/>
             <AlertTitle>Error Message</AlertTitle>
