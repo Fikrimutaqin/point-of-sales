@@ -7,6 +7,6 @@ import { cn } from "@/lib/utils";
 export function HeaderRow({ children }: { children: ReactNode }) {
   // HeaderRow is a component that renders a row of elements with a margin left based on the sidebar state.
   const { state } = useSidebar();
-  const mx = state === "expanded" ? "ml-48" : "ml-20";
+  const mx = state === "expanded" ? "ml-44" : "ml-24";
   return <div className={cn("flex items-center gap-2 px-4 w-full", mx)}>{children}</div>;
 }

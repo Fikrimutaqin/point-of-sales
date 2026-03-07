@@ -26,7 +26,7 @@ export default function LoginSection() {
 
   /// Sign In Form
   const { onSubmit, loading, error } = useSignIn({
-    onSuccess: () => router.push("/home"),
+    onSuccess: () => router.push("/pos"),
   });
   
   return (
