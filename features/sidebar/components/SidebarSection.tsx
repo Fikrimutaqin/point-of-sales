@@ -5,7 +5,6 @@ import {
   AudioWaveform,
   Command,
   GalleryVerticalEnd,
-  SquareTerminal,
   ArrowLeftRight
 } from "lucide-react"
 
@@ -19,14 +18,10 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "@/shared/components/ui/sidebar"
+import { getNavUserFromStorage } from "@/lib/auth-storage"
 
 // This is sample data.
 const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
   teams: [
     {
       name: "Acme Inc",
@@ -56,16 +51,32 @@ const data = {
 }
 
  export default function SidebarSection({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const [user, setUser] = React.useState({
+    name: "Guest",
+    email: "guest@example.com",
+    avatar: "/avatars/shadcn.jpg",
+  })
+
+  React.useEffect(() => {
+    const stored = getNavUserFromStorage()
+    if (stored) {
+      setUser({
+        name: stored.name || "Guest",
+        email: stored.email || "guest@example.com",
+        avatar: stored.avatar || "/avatars/shadcn.jpg",
+      })
+    }
+  }, [])
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader className="w-full">
-        <TeamSwitcher teams={data.teams} />
+        <TeamSwitcher />
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={user} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
