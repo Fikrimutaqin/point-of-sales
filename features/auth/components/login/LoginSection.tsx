@@ -18,7 +18,7 @@ import { Label } from "@/shared/components/ui/label"
 import { Alert, AlertDescription, AlertTitle } from "@/shared/components/ui/alert"
 import { ThemeToggle } from "@/shared/components/ui/theme-toggle"
 // Icon
-import { CheckCircle2Icon } from "lucide-react"
+import { CheckCircle2Icon, Shell } from "lucide-react"
 
 export default function LoginSection() {
   /// Router
@@ -34,6 +34,9 @@ export default function LoginSection() {
       <Card className="w-full max-w-sm">
         <CardHeader className="flex flex-row w-full items-start justify-between">
           <div className="flex flex-col gap-2">
+            <div className="flex h-12 w-12 items-center justify-center rounded-full border-2 border-emerald-500 text-emerald-600 mb-3">
+              <Shell className="h-7 w-7" />
+            </div>
             <CardTitle>Login to your account</CardTitle>
             <CardDescription>
               Enter your email below to login to your account
