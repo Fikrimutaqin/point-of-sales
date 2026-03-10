@@ -44,8 +44,9 @@ export function useSignIn(options?: Options) {
       
       // Handle success or error response
       if (res.ok) {
+        localStorage.setItem("token", res.token);
+        localStorage.setItem("user", JSON.stringify(res.user));
         options?.onSuccess?.(res);
-        console.log("submit success", res);
       } else {
         setError(res.message);
       }

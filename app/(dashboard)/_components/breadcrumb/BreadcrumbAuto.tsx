@@ -26,7 +26,7 @@ export function BreadcrumbAuto() {
           <Fragment key={c.href}>
             <BreadcrumbItem className={idx === 0 ? "hidden md:block" : undefined}>
               {c.active ? (
-                <BreadcrumbPage className="uppercase">{c.label}</BreadcrumbPage>
+                <BreadcrumbPage className="text-sm font-semibold uppercase">{c.label}</BreadcrumbPage>
               ) : (
                 <BreadcrumbLink href={c.href}>{c.label}</BreadcrumbLink>
               )}
