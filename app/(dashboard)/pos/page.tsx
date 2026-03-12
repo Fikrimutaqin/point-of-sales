@@ -4,7 +4,7 @@ import OrderDetailSection from "@/features/order-detail/components/OrderDetailSe
 
 export default function POSPage() {
   return (
-    <div className="flex flex-row gap-x-5">
+    <div className="flex flex-col lg:flex-row gap-x-5 gap-y-3 lg:gap-y-0">
       <div className="space-y-4 w-full">
         <div className="flex items-center justify-between">
           <h2 className="text-xl font-semibold">Order Queue</h2>
@@ -37,8 +37,8 @@ export default function POSPage() {
           />
         </div>
       </div>
-      <div className="w-1/2">
-        <div className="min-h-0 rounded-2xl p-4 border border-border w-full">
+      <div className="w-full lg:w-1/2">
+        <div className="min-h-0 rounded-2xl p-4 border border-border w-auto overflow-y-scroll">
           <OrderDetailSection />
         </div>
       </div>
