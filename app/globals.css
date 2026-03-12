@@ -151,3 +151,7 @@ body {
 * {
   border-color: var(--color-border);
 }
+
+.maxHeightOrderDetail {
+  height: 200px!important;
+}
