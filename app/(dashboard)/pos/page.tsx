@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { OrderCard } from "@/shared/components/order-card";
+import OrderDetailSection from "@/features/order-detail/components/OrderDetailSection";
 
 export default function POSPage() {
   return (
@@ -36,12 +37,9 @@ export default function POSPage() {
           />
         </div>
       </div>
-      <div className="w-1/3">
-        <div className="h-full rounded-2xl p-4 border border-border">
-          <div className="flex flex-row justify-between items-center">
-            <p className="text-lg font-semibold">Order Details</p>
-            <p className="text-lg font-medium text-muted-foreground">#045</p>
-          </div>
+      <div className="w-1/2">
+        <div className="min-h-0 rounded-2xl p-4 border border-border w-full">
+          <OrderDetailSection />
         </div>
       </div>
     </div>
