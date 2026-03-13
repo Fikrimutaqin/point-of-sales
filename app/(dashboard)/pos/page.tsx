@@ -1,10 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
+import MenuSection from "@/features/menu/components/MenuSection";
+import { OrderItemLine } from "@/features/order-detail/types/OderItemType";
 import { OrderCard } from "@/shared/components/order-card";
 import OrderDetailSection from "@/features/order-detail/components/OrderDetailSection";
-import { useState } from "react";
-import { OrderItemLine } from "@/features/order-detail/types/OderItemType";
 
 export default function POSPage() {
   const [orderItems, setOrderItems] = useState<OrderItemLine[]>([]);
@@ -46,10 +47,7 @@ export default function POSPage() {
         </div>
         {/* Menu */}
         <div className="w-full flex flex-col">
-          <div className="flex items-center justify-between">
-            <h2 className="text-lg font-semibold">Menu</h2>
-          </div>
-
+          <MenuSection />
         </div>
       </div>
 
