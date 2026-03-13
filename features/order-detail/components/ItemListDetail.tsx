@@ -43,7 +43,7 @@ export default function ItemListDetail({
   return (
     <div className="w-full min-h-0 flex flex-col gap-y-3 border-t border-border border-dashed py-3">
       <div className="w-full flex flex-row justify-between items-center gap-x-3">
-        <div className="text-base font-semibold">Item List</div>
+        <div className="text-lg font-semibold">Item List</div>
         <Button
           type="button"
           size="sm"

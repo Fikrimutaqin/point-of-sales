@@ -3,7 +3,6 @@ import { SidebarSection } from "@/features/sidebar/components";
 import { SidebarProvider, SidebarInset } from "@/shared/components/ui/sidebar";
 import { AuthGuard } from "./_guard/AuthGuard";
 import { DashboardHeader } from "./_components/DashboardHeader";
-import { BreadcrumbAuto } from "./_components/breadcrumb/BreadcrumbAuto";
 
 export default function DashboardLayout(
   // Props: children (ReactNode)
