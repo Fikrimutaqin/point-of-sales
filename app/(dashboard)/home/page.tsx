@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
+import Image from "next/image";
 import { Banknote, CreditCard, Wallet } from "lucide-react";
 import { MetricCard } from "@/shared/components/metric-card";
 import { SalesOverview } from "@/shared/components/sales-overview";
@@ -13,7 +14,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/shared/components/ui/dropdown-menu";
-import { ChevronDown, LayoutGrid, List, ArrowUpRight } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { getInitials } from "@/lib/name";
 
 type TransactionRow = {
@@ -65,7 +66,7 @@ const DEFAULT_TRANSACTIONS: TransactionRow[] = [
     quantity: 800,
     total: 1600000,
     imageUrl:
-      "https://images.unsplash.com/photo-1504753753649-1f21a4f1f2d1?auto=format&fit=crop&w=160&h=160&q=60",
+      "",
   },
   {
     id: "5",
@@ -75,7 +76,7 @@ const DEFAULT_TRANSACTIONS: TransactionRow[] = [
     quantity: 550,
     total: 1520000,
     imageUrl:
-      "https://images.unsplash.com/photo-1504753753649-1f21a4f1f2d1?auto=format&fit=crop&w=160&h=160&q=60",
+      "",
   },
   {
     id: "6",
@@ -85,7 +86,7 @@ const DEFAULT_TRANSACTIONS: TransactionRow[] = [
     quantity: 600,
     total: 1560000,
     imageUrl:
-      "https://images.unsplash.com/photo-1504753753649-1f21a4f1f2d1?auto=format&fit=crop&w=160&h=160&q=60",
+      "",
   },
   {
     id: "7",
@@ -95,7 +96,7 @@ const DEFAULT_TRANSACTIONS: TransactionRow[] = [
     quantity: 750,
     total: 1800000,
     imageUrl:
-      "https://images.unsplash.com/photo-1504753753649-1f21a4f1f2d1?auto=format&fit=crop&w=160&h=160&q=60",
+      "",
   },
   {
     id: "8",
@@ -105,7 +106,7 @@ const DEFAULT_TRANSACTIONS: TransactionRow[] = [
     quantity: 650,
     total: 1625000,
     imageUrl:
-      "https://images.unsplash.com/photo-1504753753649-1f21a4f1f2d1?auto=format&fit=crop&w=160&h=160&q=60",
+      "",
   },
   {
     id: "9",
@@ -115,7 +116,7 @@ const DEFAULT_TRANSACTIONS: TransactionRow[] = [
     quantity: 680,
     total: 1494000,
     imageUrl:
-      "https://images.unsplash.com/photo-1504753753649-1f21a4f1f2d1?auto=format&fit=crop&w=160&h=160&q=60",
+      "",
   },
   {
     id: "10",
@@ -125,7 +126,7 @@ const DEFAULT_TRANSACTIONS: TransactionRow[] = [
     quantity: 580,
     total: 1604000,
     imageUrl:
-      "https://images.unsplash.com/photo-1504753753649-1f21a4f1f2d1?auto=format&fit=crop&w=160&h=160&q=60",
+      "",
   },
   {
     id: "11",
@@ -135,7 +136,7 @@ const DEFAULT_TRANSACTIONS: TransactionRow[] = [
     quantity: 600,
     total: 1500000,
     imageUrl:
-      "https://images.unsplash.com/photo-1504753753649-1f21a4f1f2d1?auto=format&fit=crop&w=160&h=160&q=60",
+      "",
   },
 ];
 
@@ -145,9 +146,15 @@ export default function HomePage() {
   const [category, setCategory] = useState<string>("All");
   const [page, setPage] = useState(1);
 
-  useEffect(() => {
+  const setQueryAndResetPage = (value: string) => {
     setPage(1);
-  }, [category, query]);
+    setQuery(value);
+  };
+
+  const setCategoryAndResetPage = (value: string) => {
+    setPage(1);
+    setCategory(value);
+  };
 
   const categories = useMemo(() => {
     const set = new Set(allRows.map((r) => r.category));
@@ -172,19 +179,19 @@ export default function HomePage() {
           <div className="flex items-center gap-3">
             <div className="relative h-10 w-10 overflow-hidden rounded-xl bg-muted">
               {r.imageUrl ? (
-                <img
+                <Image
                   src={r.imageUrl}
-                  alt={r.productName}
-                  className="h-full w-full object-cover"
-                  onError={(e) => {
-                    e.currentTarget.src =
-                      "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=";
-                  }}
+                  alt={getInitials(r.productName)}
+                  fill
+                  unoptimized
+                  sizes="40px"
+                  className="object-cover"
                 />
-              ) : null}
+              ) : <>
               <div className="absolute inset-0 flex items-center justify-center text-xs font-semibold text-emerald-700">
                 {getInitials(r.productName)}
               </div>
+              </>}
             </div>
             <div className="font-medium">{r.productName}</div>
           </div>
@@ -252,7 +259,7 @@ export default function HomePage() {
 
         <DataTable
           title="Transaction"
-          search={{ value: query, onChange: setQuery, placeholder: "Search Product..." }}
+          search={{ value: query, onChange: setQueryAndResetPage, placeholder: "Search Product..." }}
           filtersSlot={
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -263,7 +270,7 @@ export default function HomePage() {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
                 {categories.map((c) => (
-                  <DropdownMenuItem key={c} onClick={() => setCategory(c)}>
+                  <DropdownMenuItem key={c} onClick={() => setCategoryAndResetPage(c)}>
                     {c}
                   </DropdownMenuItem>
                 ))}
@@ -274,7 +281,7 @@ export default function HomePage() {
           columns={columns}
           rows={rows}
           getRowKey={(r) => r.id}
-          pagination={{ page, onChange: setPage, pageSize: 5 }}
+          pagination={{ page, onChange: setPage, pageSize: 10 }}
         />
       </div>
       <div className="w-full lg:w-[30%]">

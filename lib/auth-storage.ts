@@ -6,6 +6,17 @@ export type NavUserProfile = {
   avatar: string;
 };
 
+export type StoredUser = {
+  email?: string;
+  avatar?: string;
+  role?: unknown;
+  name?: string;
+  user?: {
+    name?: string;
+    email?: string;
+  };
+};
+
 export function getStoredToken(): string | null {
   if (typeof window === "undefined") return null;
   try {
@@ -15,12 +26,12 @@ export function getStoredToken(): string | null {
   }
 }
 
-export function getStoredRawUser(): any | null {
+export function getStoredRawUser(): StoredUser | null {
   if (typeof window === "undefined") return null;
   try {
     const raw = window.localStorage.getItem("user");
     if (!raw) return null;
-    return JSON.parse(raw);
+    return JSON.parse(raw) as StoredUser;
   } catch {
     return null;
   }

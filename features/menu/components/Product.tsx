@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Minus, Plus } from "lucide-react";
 import { getInitials } from "@/lib/name";
@@ -39,13 +40,13 @@ export default function ProductCard({
         <div className={cn("w-full max-w-full rounded-2xl border border-border p-3", className)}>
             <div className="relative h-40 w-full overflow-hidden rounded-2xl bg-muted">
                 {imageUrl ? (
-                    <img
+                    <Image
                         src={imageUrl}
                         alt={name}
-                        className="h-full w-full object-cover"
-                        onError={(e) => {
-                            e.currentTarget.src = "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=";
-                        }}
+                        fill
+                        unoptimized
+                        sizes="(max-width: 768px) 100vw, 360px"
+                        className="object-cover"
                     />
                 ) : null}
                 <div className="absolute inset-0 flex items-center justify-center text-lg font-semibold text-emerald-700">

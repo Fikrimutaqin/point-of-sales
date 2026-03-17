@@ -5,26 +5,20 @@ import { Button } from "./button";
 import { applyTheme, resolveInitialTheme, storeTheme, ThemeMode } from "@/lib/theme";
 
 export function ThemeToggle() {
-  const [mode, setMode] = useState<ThemeMode>("light");
+  const [mode, setMode] = useState<ThemeMode>(() => resolveInitialTheme());
 
   useEffect(() => {
-    // Get stored theme from local storage
+    applyTheme(mode);
+  }, [mode]);
+
+  useEffect(() => {
     const stored = typeof window !== "undefined" ? window.localStorage.getItem("theme") : null;
-    // Get initial theme from document class list 
-    const init = resolveInitialTheme();
-    // Set initial theme
-    setMode(init);
-    // Apply initial theme
-    applyTheme(init);
-    // If no stored theme, apply default theme
     if (!stored && typeof window !== "undefined" && window.matchMedia) {
       const mql = window.matchMedia("(prefers-color-scheme: dark)");
       const handler = (e: MediaQueryListEvent) => {
         const next: ThemeMode = e.matches ? "dark" : "light";
         setMode(next);
-        applyTheme(next);
       };
-      // Add event listener to media query list
       try {
         mql.addEventListener("change", handler);
         return () => mql.removeEventListener("change", handler);
@@ -39,7 +33,6 @@ export function ThemeToggle() {
   const toggle = () => {
     const next: ThemeMode = mode === "dark" ? "light" : "dark";
     setMode(next);
-    applyTheme(next);
     storeTheme(next);
   };
 

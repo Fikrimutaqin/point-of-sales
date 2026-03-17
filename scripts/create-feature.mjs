@@ -1,7 +1,7 @@
-const fs = require("fs");
-const fsp = require("fs/promises");
-const path = require("path");
-const readline = require("readline");
+import fs from "node:fs";
+import fsp from "node:fs/promises";
+import path from "node:path";
+import readline from "node:readline";
 
 function toKebab(input) {
   return String(input)
@@ -49,7 +49,7 @@ async function main() {
     console.error("Feature name is required");
     process.exit(1);
   }
-  // Support inputs: "auth/login", "auth login", "auth:login"
+
   const normalized = String(rawName).trim().replace(/[:\s]+/g, "/").replace(/\/+/g, "/");
   const parts = normalized.split("/").filter(Boolean);
   const groupRaw = parts[0];
@@ -57,7 +57,6 @@ async function main() {
   const groupPascal = toPascal(groupRaw);
 
   const cwd = process.cwd();
-  // Domain-level folder per feature group
   const featureRoot = path.join(cwd, "features", groupSlug);
 
   await ensureDir(path.join(featureRoot, "components"));
@@ -99,3 +98,4 @@ main().catch((e) => {
   console.error(e);
   process.exit(1);
 });
+
