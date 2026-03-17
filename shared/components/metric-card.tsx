@@ -32,7 +32,7 @@ export function MetricCard({ label, value, tone = "neutral", icon, trend, classN
   return (
     <div
       className={cn(
-        "w-full rounded-2xl border border-border p-4",
+        "w-full rounded-lg border border-border p-4",
         toneClass[tone],
         className
       )}

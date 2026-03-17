@@ -11,7 +11,7 @@ export function AuthIsLoginGuard({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const token = getStoredToken();
     if (token) {
-      router.replace("/pos");
+      router.replace("/home");
       return;
     }
     setAllowed(true);
