@@ -1,3 +1,5 @@
+"use client";
+
 import { FilterIcon, SearchIcon } from "lucide-react";
 import Category from "./Category";
 import ProductCard from "./Product";
@@ -25,7 +27,7 @@ export default function MenuSection() {
       {/* Category */}
       <Category />
 
-      <div className="grid grid-cols-3 gap-3 my-3">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 my-3">
         {dataProducts.map((product) => (
           <ProductCard
             key={product.id}

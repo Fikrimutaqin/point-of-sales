@@ -1,18 +1,12 @@
-"use client";
-
-import { useState } from "react";
 import Link from "next/link";
 import MenuSection from "@/features/menu/components/MenuSection";
-import { OrderItemLine } from "@/features/order-detail/types/OderItemType";
 import { OrderCard } from "@/shared/components/order-card";
 import OrderDetailSection from "@/features/order-detail/components/OrderDetailSection";
 
 export default function POSPage() {
-  const [orderItems, setOrderItems] = useState<OrderItemLine[]>([]);
-
   return (
-    <div className="flex flex-col lg:flex-row gap-x-5 gap-y-3 lg:gap-y-0">
-      <div className="space-y-4 w-full">
+    <div className="flex flex-col lg:flex-row gap-x-5 gap-y-3 lg:gap-y-0 w-full">
+      <div className="space-y-4 w-full lg:w-[70%]">
         {/* Order Queue */}
         <div className="w-full flex flex-col gap-3">
           <div className="flex items-center justify-between">
@@ -51,7 +45,7 @@ export default function POSPage() {
         </div>
       </div>
 
-      <div className={`w-full lg:w-1/2 ${orderItems.length > 0 ? "block" : "hidden"}`}>
+      <div className="w-full lg:w-[30%]">
         <div className="min-h-0 rounded-2xl p-4 border border-border w-auto overflow-y-scroll">
           <OrderDetailSection />
         </div>
