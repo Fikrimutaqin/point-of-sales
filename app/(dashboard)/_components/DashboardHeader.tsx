@@ -42,7 +42,7 @@ export function DashboardHeader() {
   const notificationCount = 2;
 
   return (
-    <header className="flex w-full items-center gap-4 border-b border-border bg-background px-4 lg:pl-28 py-4">
+    <header className="flex w-full items-center gap-4 border-b border-border bg-background px-4 lg:pl-28 py-4 fixed top-0 left-0 right-0 z-10">
       <div className="min-w-0">
         <p className="truncate text-lg font-semibold">
           Hi, {user.name}, here's today's orders!
