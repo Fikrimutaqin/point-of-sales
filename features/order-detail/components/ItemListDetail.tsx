@@ -4,7 +4,7 @@ import { Button } from "@/shared/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Minus, Plus, ShieldX } from "lucide-react";
 import { useEffect, useState } from "react";
-import { OrderItemLine } from "../types/OderItemType";
+import { OrderItemLine } from "../types/OrderItemType";
 import { getInitials } from "@/lib/name";
 
 export default function ItemListDetail({
