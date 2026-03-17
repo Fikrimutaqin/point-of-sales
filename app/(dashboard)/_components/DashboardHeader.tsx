@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { Bell } from "lucide-react";
 import { ThemeToggle } from "@/shared/components/ui/theme-toggle";
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/components/ui/avatar";
@@ -10,26 +10,22 @@ import { formatHeaderDate } from "@/lib/date-format";
 import type { HeaderUser } from "@/features/sidebar/types";
 
 export function DashboardHeader() {
-  // State for user information
-  const [user, setUser] = useState<HeaderUser>({
-    name: "Guest",
-    email: "guest@example.com",
-    avatar: "",
-    role: "UNKNOWN",
-  });
-
-  useEffect(() => {
-    // Get user from storage
+  const user = useMemo<HeaderUser>(() => {
     const raw = getStoredRawUser();
-    // If no user found, return
-    if (!raw) return;
-    // Set user state
-    setUser({
+    if (!raw) {
+      return {
+        name: "Guest",
+        email: "guest@example.com",
+        avatar: "",
+        role: "UNKNOWN",
+      };
+    }
+    return {
       name: raw.user?.name ?? raw.name ?? "User",
       email: raw.email ?? raw.user?.email ?? "user@example.com",
       avatar: raw.avatar ?? "",
       role: raw.role === "ADMIN" || raw.role === "USER" ? raw.role : "UNKNOWN",
-    });
+    };
   }, []);
 
 
@@ -45,7 +41,7 @@ export function DashboardHeader() {
     <header className="flex w-full items-center gap-4 border-b border-border bg-background px-4 lg:pl-28 py-4 fixed top-0 left-0 right-0 z-10">
       <div className="min-w-0">
         <p className="truncate text-lg font-semibold">
-          Hi, {user.name}, here's today's orders!
+          Hi, {user.name}, here’s today’s orders!
         </p>
         <p className="text-sm text-muted-foreground">{dateText}</p>
       </div>
@@ -72,7 +68,7 @@ export function DashboardHeader() {
             </AvatarFallback>
           </Avatar>
           <div className="hidden min-w-0 flex-col leading-tight sm:flex">
-            <span className="truncate text-xs text-muted-foreground">Hi, I'm a {roleLabel}</span>
+            <span className="truncate text-xs text-muted-foreground">Hi, I’m a {roleLabel}</span>
             <span className="truncate text-sm font-semibold">{user.name}</span>
           </div>
         </div>

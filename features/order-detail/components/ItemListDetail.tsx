@@ -4,6 +4,7 @@ import { Button } from "@/shared/components/ui/button";
 import { cn } from "@/lib/utils";
 import { Minus, Plus, ShieldX } from "lucide-react";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { OrderItemLine } from "../types/OrderItemType";
 import { getInitials } from "@/lib/name";
 
@@ -75,14 +76,13 @@ export default function ItemListDetail({
             <div key={it.id} className="w-full flex items-center gap-x-3">
               <div className="relative h-14 w-14 overflow-hidden rounded-xl bg-muted shrink-0">
                 {it.imageUrl ? (
-                  <img
+                  <Image
                     src={it.imageUrl}
                     alt={it.name}
-                    className="h-full w-full object-cover"
-                    onError={(e) => {
-                      e.currentTarget.src =
-                        "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=";
-                    }}
+                    fill
+                    unoptimized
+                    sizes="56px"
+                    className="object-cover"
                   />
                 ) : null}
                 <div className="absolute inset-0 flex items-center justify-center text-sm font-semibold text-emerald-700">

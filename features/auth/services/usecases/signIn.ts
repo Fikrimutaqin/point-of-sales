@@ -61,7 +61,8 @@ export async function signIn(input: SignInInput): Promise<SignInSuccess | SignIn
     return { ok: false, code: "UNAUTHORIZED", message: "Email atau password salah" };
   }
   // Remove password from user object
-  const { password: _pw, ...user } = found;
+  const { password: _password, ...user } = found;
+  void _password;
   // Generate token for user
   const token = makeToken(user.email);
   // Return success response

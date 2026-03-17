@@ -1,5 +1,6 @@
 'use client';
 import { useMemo, useState } from "react";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Card } from "@/shared/components/ui/card";
 import { Button } from "@/shared/components/ui/button";
@@ -97,14 +98,13 @@ export default function  ProductBestSellerSection({
               <div className="flex min-w-0 flex-1 items-center gap-3">
                 <div className={cn("relative h-12 w-12 overflow-hidden rounded-xl bg-muted shrink-0", top && "bg-white/20")}>
                   {p.imageUrl ? (
-                    <img
+                    <Image
                       src={p.imageUrl}
                       alt={p.name}
-                      className="h-full w-full object-cover"
-                      onError={(e) => {
-                        e.currentTarget.src =
-                          "data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=";
-                      }}
+                      fill
+                      unoptimized
+                      sizes="48px"
+                      className="object-cover"
                     />
                   ) : null}
                   <div className={cn("absolute inset-0 flex items-center justify-center text-sm font-semibold", top ? "text-white" : "text-emerald-700")}>
@@ -143,4 +143,3 @@ export default function  ProductBestSellerSection({
     </Card>
   );
 }
-
