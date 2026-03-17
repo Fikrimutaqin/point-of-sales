@@ -1,56 +1,98 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Ringkasan Proyek — Point of Sales
 
-## Getting Started
+## 1) Gambaran Umum
+Project ini adalah aplikasi Point of Sales berbasis Next.js (App Router) dengan pendekatan struktur “feature-first” (folder `features/`). UI dibangun dengan Tailwind CSS dan pola komponen shadcn/ui (Radix UI).
 
-First, run the development server:
+Fokus implementasi saat ini:
+- Login sederhana + guard token berbasis localStorage.
+- Dashboard (Home) dengan metric cards, chart sales overview, best seller section, dan tabel transaksi.
+- POS page untuk order queue, menu, serta order detail (item list, payment summary, payment method).
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 2) Teknologi & Dependensi Utama
+Sumber: `package.json`
+- Next.js 16 (App Router)
+- React 19 + TypeScript
+- Tailwind CSS v4 + tailwindcss-animate
+- shadcn/ui-style components (Radix UI)
+- Lucide icons
+- ESLint 9
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Script penting:
+- `npm run dev` — dev server
+- `npm run build` — build
+- `npm run start` — start
+- `npm run lint` — lint
+- `npm run create:feature` — generator folder feature
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 3) Struktur Folder
+### app/
+Berisi routing & layout App Router.
+- Route group:
+  - `(auth)` — login
+  - `(dashboard)` — area setelah login
+- Guard:
+  - `app/(auth)/login/_guard/AuthIsLoginGuard.tsx`
+  - `app/(dashboard)/_guard/AuthGuard.tsx`
+- Layout:
+  - `app/(dashboard)/layout.tsx` membungkus dashboard dengan sidebar + header + footer dan guard.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### features/
+Implementasi domain per fitur, umumnya memiliki:
+- `components/` UI feature
+- `hooks/` hook feature
+- `services/` (data dummy & usecases)
+- `types/` tipe domain
+- `utils/` helper domain
 
-## Learn More
+Feature yang ada:
+- `auth` — login, hook `useSignIn`, usecase sign-in, types.
+- `sidebar` — sidebar icon-only + menu data + helper active route.
+- `menu` — category tabs + product card + menu section.
+- `order-detail` — item list detail, payment summary, payment method.
+- `product-best-seller` — ranking best seller dengan dropdown period.
 
-To learn more about Next.js, take a look at the following resources:
+### shared/
+Komponen reusable lintas fitur.
+- `shared/components/ui/*` — shadcn/ui-style primitives (button, card, dropdown-menu, input, sidebar, table, dll).
+- Komponen global:
+  - `shared/components/metric-card.tsx`
+  - `shared/components/sales-overview.tsx`
+  - `shared/components/order-card.tsx`
+  - `shared/components/data-table.tsx` (tabel reusable + pagination)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### lib/
+Utility non-UI:
+- `auth-storage.ts` — akses token/user localStorage
+- `breadcrumbs.ts` — builder breadcrumbs
+- `date-format.ts` — format tanggal header
+- `name.ts` — getInitials
+- `utils.ts` — cn (clsx + tailwind-merge) dan util lain
+- `validation.ts` — validasi (mis. email)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### scripts/
+- `scripts/create-feature.js` — generator folder `features/<nama>` (tidak membuat route di `app/`).
 
-## Deploy on Vercel
+## 4) Routing & Halaman Penting
+- `app/(auth)/login/page.tsx` — login page
+- `app/(dashboard)/home/page.tsx` — dashboard home (metric + sales overview + transaction table + best seller section)
+- `app/(dashboard)/pos/page.tsx` — POS (order queue, menu, order detail)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 5) Pola Interaktivitas (Client vs Server Component)
+Pada Next.js App Router:
+- Komponen yang memakai state/handler harus `use client`.
+- Event handler tidak boleh dipassing dari Server Component ke Client Component.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Karena itu, beberapa section dibuat sebagai Client Component untuk menghindari error “Event handlers cannot be passed…”.
 
-## Catatan Struktur Folder
+## 6) Komponen Dashboard yang Menonjol
+- Metric cards: `shared/components/metric-card.tsx`
+- Sales overview: `shared/components/sales-overview.tsx`
+- Best seller: `features/product-best-seller/components/ProductBestSellerSection.tsx`
+- Transaction table: `shared/components/data-table.tsx` dipakai di `home/page.tsx`
+  - Search & filtering dilakukan di parent, DataTable hanya menerima props.
+  - Pagination opsional tersedia via prop `pagination`.
 
-- app/ — routing dan halaman (App Router Next.js).
-- services/
-  - http/ — klien HTTP berbasis fetch; satu pintu untuk GET/POST/PUT/DELETE.
-  - usecases/ — logic bisnis per domain (misal: products) berisi operasi get/create/update/delete.
-- components/
-  - common/ — komponen global yang reusable lintas halaman (misal: Button).
-  - local/ — komponen sekali pakai spesifik halaman/fitur (misal: SampleCard).
-- hooks/ — React hooks reusable (misal: useDisclosure).
-- utils/ — fungsi utilitas non-UI (misal: formatCurrency).
-- types/ — definisi tipe global yang dipakai lintas modul (misal: Product).
-
-### Prinsip Penempatan
-
-- Logic bisnis tidak di dalam komponen; tempatkan di `services/usecases/<domain>`.
-- Semua akses HTTP melalui `services/http` agar mudah diganti/mocking.
-- Komponen reusable taruh di `components/common`; yang spesifik fitur taruh di `components/local`.
-- Gunakan alias import `@/` sesuai `tsconfig.json` untuk path yang rapi.
+## 7) Catatan Teknis / Potensi Perbaikan
+- Konsistensi penamaan: type item order sudah dirapikan ke `OrderItemType.ts` (nama lama masih ada jika diperlukan).
+- Dokumentasi: README sudah ditambah catatan App Router terkait Client/Server Component.
+- Kualitas: tersedia `npm run typecheck` untuk verifikasi TypeScript.

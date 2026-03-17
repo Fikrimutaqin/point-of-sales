@@ -53,23 +53,18 @@ async function main() {
   const normalized = String(rawName).trim().replace(/[:\s]+/g, "/").replace(/\/+/g, "/");
   const parts = normalized.split("/").filter(Boolean);
   const groupRaw = parts[0];
-  const routeRaw = parts[1] ?? parts[0];
   const groupSlug = toKebab(groupRaw);
-  const routeSlug = toKebab(routeRaw);
   const groupPascal = toPascal(groupRaw);
 
   const cwd = process.cwd();
   // Domain-level folder per feature group
   const featureRoot = path.join(cwd, "features", groupSlug);
-  // Route group named after feature group, URL does not include parentheses
-  const appRouteDir = path.join(cwd, "app", `(${groupSlug})`, routeSlug);
 
   await ensureDir(path.join(featureRoot, "components"));
   await ensureDir(path.join(featureRoot, "hooks"));
   await ensureDir(path.join(featureRoot, "services", "usecases"));
   await ensureDir(path.join(featureRoot, "types"));
   await ensureDir(path.join(featureRoot, "utils"));
-  await ensureDir(appRouteDir);
 
   const componentFile = path.join(featureRoot, "components", `${groupPascal}Section.tsx`);
   const componentContent =
@@ -78,18 +73,6 @@ async function main() {
     `    <div className="rounded-lg border p-4">\n` +
     `      <div className="text-base font-semibold">${groupPascal}</div>\n` +
     `      <p className="text-sm text-gray-600">This is the ${groupSlug} feature.</p>\n` +
-    `    </div>\n` +
-    `  );\n` +
-    `}\n`;
-
-  const pageFile = path.join(appRouteDir, "page.tsx");
-  const pageContent =
-    `import ${groupPascal}Section from "@/features/${groupSlug}/components/${groupPascal}Section";\n` +
-    `export default function Page() {\n` +
-    `  return (\n` +
-    `    <div className="space-y-4">\n` +
-    `      <h1 className="text-xl font-semibold">${toPascal(routeSlug)}</h1>\n` +
-    `      <${groupPascal}Section />\n` +
     `    </div>\n` +
     `  );\n` +
     `}\n`;
@@ -104,14 +87,12 @@ async function main() {
   ];
 
   await writeFileIfNotExists(componentFile, componentContent);
-  await writeFileIfNotExists(pageFile, pageContent);
   for (const bf of barrelFiles) {
     await writeFileIfNotExists(bf, "");
   }
 
-  console.log(`Created feature "${groupSlug}/${routeSlug}".`);
+  console.log(`Created feature "${groupSlug}".`);
   console.log(`- features/${groupSlug}`);
-  // console.log(`- app/(${groupSlug})/${routeSlug}/page.tsx`);
 }
 
 main().catch((e) => {
