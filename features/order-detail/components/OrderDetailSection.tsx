@@ -27,19 +27,19 @@ export default function OrderDetailSection() {
         {SwitcherButton({ buttons: ["Dine in", "Take Away"] }, activeButton, setActiveButton)}
 
         {/* Customer name and choice number table is available*/}
-        <div className="flex flex-col lg:flex-row gap-x-3 justify-between gap-y-2">
+        <div className="flex flex-col gap-x-3 justify-between gap-y-2 w-full">
           {/* Card customer */}
-          <Card className="mx-auto w-full max-w-sm">
+          <Card className="mx-auto w-full max-w-full">
             <CardContent className="w-full flex flex-col justify-start items-start p-2! gap-y-2">
               <p className="text-muted-foreground text-sm">Customer Name</p>
               <Input placeholder="Enter customer name" />
             </CardContent>
           </Card>
           {/* Card choice number */}
-          <Card className="mx-auto w-full max-w-sm">
+          <Card className="mx-auto w-full max-w-full">
             <CardContent className="w-full flex flex-col justify-start items-start p-2! gap-y-2">
               <p className="text-muted-foreground text-sm">Table Number</p>
-              <Button className="bg-emerald-600 rounded-full! text-xs text-white hover:bg-emerald-700">Choice Table Number</Button>
+              <Button className="bg-emerald-600 w-full rounded-full! text-xs text-white hover:bg-emerald-700">Choice Table Number</Button>
             </CardContent>
           </Card>
         </div>
@@ -47,12 +47,12 @@ export default function OrderDetailSection() {
         <ItemListDetail initialItems={initialItems} />
         {/* Payment summary */}
         <PaymentSummary order={{
-          subTotal: 1000,
-          tax: 100,
+          subTotal: 0,
+          tax: 0,
           discountType: 'percentage',
-          discountValue: 10,
-          feeApplication: 10,
-          total: 1100,
+          discountValue: 0,
+          feeApplication: 0,
+          total: 0,
         }} />
         {/* Choice payment method */}
         <div className="w-full flex flex-col justify-between items-center gap-x-3 gap-y-3">

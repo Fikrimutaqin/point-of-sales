@@ -1,0 +1,1 @@
+export type BestSellerPeriod = "daily" | "weekly" | "monthly";
