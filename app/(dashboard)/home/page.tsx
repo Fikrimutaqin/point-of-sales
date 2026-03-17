@@ -66,7 +66,7 @@ const DEFAULT_TRANSACTIONS: TransactionRow[] = [
     quantity: 800,
     total: 1600000,
     imageUrl:
-      "https://images.unsplash.com/photo-1504753753649-1f21a4f1f2d1?auto=format&fit=crop&w=160&h=160&q=60",
+      "",
   },
   {
     id: "5",
@@ -76,7 +76,7 @@ const DEFAULT_TRANSACTIONS: TransactionRow[] = [
     quantity: 550,
     total: 1520000,
     imageUrl:
-      "https://images.unsplash.com/photo-1504753753649-1f21a4f1f2d1?auto=format&fit=crop&w=160&h=160&q=60",
+      "",
   },
   {
     id: "6",
@@ -86,7 +86,7 @@ const DEFAULT_TRANSACTIONS: TransactionRow[] = [
     quantity: 600,
     total: 1560000,
     imageUrl:
-      "https://images.unsplash.com/photo-1504753753649-1f21a4f1f2d1?auto=format&fit=crop&w=160&h=160&q=60",
+      "",
   },
   {
     id: "7",
@@ -96,7 +96,7 @@ const DEFAULT_TRANSACTIONS: TransactionRow[] = [
     quantity: 750,
     total: 1800000,
     imageUrl:
-      "https://images.unsplash.com/photo-1504753753649-1f21a4f1f2d1?auto=format&fit=crop&w=160&h=160&q=60",
+      "",
   },
   {
     id: "8",
@@ -106,7 +106,7 @@ const DEFAULT_TRANSACTIONS: TransactionRow[] = [
     quantity: 650,
     total: 1625000,
     imageUrl:
-      "https://images.unsplash.com/photo-1504753753649-1f21a4f1f2d1?auto=format&fit=crop&w=160&h=160&q=60",
+      "",
   },
   {
     id: "9",
@@ -116,7 +116,7 @@ const DEFAULT_TRANSACTIONS: TransactionRow[] = [
     quantity: 680,
     total: 1494000,
     imageUrl:
-      "https://images.unsplash.com/photo-1504753753649-1f21a4f1f2d1?auto=format&fit=crop&w=160&h=160&q=60",
+      "",
   },
   {
     id: "10",
@@ -126,7 +126,7 @@ const DEFAULT_TRANSACTIONS: TransactionRow[] = [
     quantity: 580,
     total: 1604000,
     imageUrl:
-      "https://images.unsplash.com/photo-1504753753649-1f21a4f1f2d1?auto=format&fit=crop&w=160&h=160&q=60",
+      "",
   },
   {
     id: "11",
@@ -136,7 +136,7 @@ const DEFAULT_TRANSACTIONS: TransactionRow[] = [
     quantity: 600,
     total: 1500000,
     imageUrl:
-      "https://images.unsplash.com/photo-1504753753649-1f21a4f1f2d1?auto=format&fit=crop&w=160&h=160&q=60",
+      "",
   },
 ];
 
@@ -181,16 +181,17 @@ export default function HomePage() {
               {r.imageUrl ? (
                 <Image
                   src={r.imageUrl}
-                  alt={r.productName}
+                  alt={getInitials(r.productName)}
                   fill
                   unoptimized
                   sizes="40px"
                   className="object-cover"
                 />
-              ) : null}
+              ) : <>
               <div className="absolute inset-0 flex items-center justify-center text-xs font-semibold text-emerald-700">
                 {getInitials(r.productName)}
               </div>
+              </>}
             </div>
             <div className="font-medium">{r.productName}</div>
           </div>
