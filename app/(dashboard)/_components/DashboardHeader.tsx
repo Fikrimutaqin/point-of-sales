@@ -19,17 +19,44 @@ export function DashboardHeader() {
   const [dateText, setDateText] = useState<string>("");
 
   useEffect(() => {
-    const raw = getStoredRawUser();
-    if (raw) {
+    const load = () => {
+      const raw = getStoredRawUser();
+      if (!raw) return;
       const nextUser: HeaderUser = {
         name: raw.user?.name ?? raw.name ?? "User",
         email: raw.email ?? raw.user?.email ?? "user@example.com",
         avatar: raw.avatar ?? "",
         role: raw.role === "ADMIN" || raw.role === "USER" ? raw.role : "UNKNOWN",
       };
-      const t = setTimeout(() => setUser(nextUser), 0);
-      return () => clearTimeout(t);
-    }
+      setUser(nextUser);
+    };
+
+    load();
+
+    const onUserUpdated = (e: Event) => {
+      const ce = e as CustomEvent<Partial<HeaderUser>>;
+      const detail = ce.detail ?? {};
+      if (detail.name || detail.email || detail.avatar) {
+        setUser((prev) => ({
+          ...prev,
+          name: detail.name ?? prev.name,
+          email: detail.email ?? prev.email,
+          avatar: detail.avatar ?? prev.avatar,
+        }));
+        return;
+      }
+      load();
+    };
+    const onStorage = (e: StorageEvent) => {
+      if (e.key === "user") load();
+    };
+
+    window.addEventListener("auth:user-updated", onUserUpdated as EventListener);
+    window.addEventListener("storage", onStorage);
+    return () => {
+      window.removeEventListener("auth:user-updated", onUserUpdated as EventListener);
+      window.removeEventListener("storage", onStorage);
+    };
   }, []);
 
   useEffect(() => {

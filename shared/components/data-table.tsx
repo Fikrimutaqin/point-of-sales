@@ -71,7 +71,7 @@ export function DataTable<T>({
         <div className="ml-auto flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center">
           {search ? (
             <Input
-              value={search.value}
+              value={search.value ?? ""}
               onChange={(e) => search.onChange(e.target.value)}
               placeholder={search.placeholder ?? "Search..."}
               className="w-full sm:w-[260px] rounded-full"
