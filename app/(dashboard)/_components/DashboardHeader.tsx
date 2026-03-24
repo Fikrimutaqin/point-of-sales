@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo } from "react";
+import { useEffect, useState } from "react";
 import { Bell } from "lucide-react";
 import { ThemeToggle } from "@/shared/components/ui/theme-toggle";
 import { Avatar, AvatarFallback, AvatarImage } from "@/shared/components/ui/avatar";
@@ -10,28 +10,33 @@ import { formatHeaderDate } from "@/lib/date-format";
 import type { HeaderUser } from "@/features/sidebar/types";
 
 export function DashboardHeader() {
-  const user = useMemo<HeaderUser>(() => {
+  const [user, setUser] = useState<HeaderUser>({
+    name: "Guest",
+    email: "guest@example.com",
+    avatar: "",
+    role: "UNKNOWN",
+  });
+  const [dateText, setDateText] = useState<string>("");
+
+  useEffect(() => {
     const raw = getStoredRawUser();
-    if (!raw) {
-      return {
-        name: "Guest",
-        email: "guest@example.com",
-        avatar: "",
-        role: "UNKNOWN",
+    if (raw) {
+      const nextUser: HeaderUser = {
+        name: raw.user?.name ?? raw.name ?? "User",
+        email: raw.email ?? raw.user?.email ?? "user@example.com",
+        avatar: raw.avatar ?? "",
+        role: raw.role === "ADMIN" || raw.role === "USER" ? raw.role : "UNKNOWN",
       };
+      const t = setTimeout(() => setUser(nextUser), 0);
+      return () => clearTimeout(t);
     }
-    return {
-      name: raw.user?.name ?? raw.name ?? "User",
-      email: raw.email ?? raw.user?.email ?? "user@example.com",
-      avatar: raw.avatar ?? "",
-      role: raw.role === "ADMIN" || raw.role === "USER" ? raw.role : "UNKNOWN",
-    };
   }, []);
 
-
-  // Get today's date
-  const today = useMemo(() => new Date(), []);
-  const dateText = useMemo(() => formatHeaderDate(today, "en-US"), [today]);
+  useEffect(() => {
+    const txt = formatHeaderDate(new Date(), "en-US");
+    const t = setTimeout(() => setDateText(txt), 0);
+    return () => clearTimeout(t);
+  }, []);
 
   // Get role label
   const roleLabel = user.role === "ADMIN" ? "Admin" : "Cashier";

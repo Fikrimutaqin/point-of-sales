@@ -36,8 +36,8 @@ export default function MenuSection() {
             description={product.description}
             priceMin={product.priceMin}
             priceMax={product.priceMax}
-            imageUrl={`https://example.com/${product.category}.jpg`}
-            available={true}
+            imageUrl={product.url}
+            available={product.available}
             onAdd={(id, qty) => console.log(id, qty)}
           />
         ))}

@@ -48,10 +48,12 @@ export default function ProductCard({
                         sizes="(max-width: 768px) 100vw, 360px"
                         className="object-cover"
                     />
-                ) : null}
-                <div className="absolute inset-0 flex items-center justify-center text-lg font-semibold text-emerald-700">
-                    {getInitials(name)}
-                </div>
+                ) : <>
+                    <div className={cn("absolute inset-0 flex items-center justify-center text-sm font-semibold", available ? "text-white" : "text-muted-foreground")}>
+                        {getInitials(name)}
+                    </div>
+                </>}
+               
                 <div className="absolute right-2 top-2">
                     <span
                         className={cn(

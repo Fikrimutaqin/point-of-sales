@@ -1,18 +1,22 @@
 'use client';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getStoredToken } from "@/lib/auth-storage";
 
 export function AuthGuard({ children }: { children: React.ReactNode }) {
   const router = useRouter();
-  const token = getStoredToken();
+  const [allowed, setAllowed] = useState(false);
 
   useEffect(() => {
+    const token = getStoredToken();
     if (!token) {
       router.replace("/login");
+      return;
     }
-  }, [router, token]);
+    const t = setTimeout(() => setAllowed(true), 0);
+    return () => clearTimeout(t);
+  }, [router]);
 
-  if (!token) return null;
+  if (!allowed) return null;
   return <>{children}</>;
 }
