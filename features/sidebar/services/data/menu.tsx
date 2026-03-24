@@ -12,6 +12,6 @@ export const dataMenu = [
   { label: "Menu", href: "/pos", icon: LayoutGrid },
   { label: "Order", href: "/order", icon: Receipt },
   { label: "Promo", href: "/promo", icon: Percent },
-  { label: "Chart", href: "/chart", icon: BarChart3 },
+  { label: "Report", href: "/report", icon: BarChart3 },
   { label: "History", href: "/history", icon: History },
 ];

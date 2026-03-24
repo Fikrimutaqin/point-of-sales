@@ -46,8 +46,8 @@ export default function SidebarSection(props: React.ComponentProps<typeof Sideba
                 href={item.href}
                 className={cn(
                   "flex w-full max-w-[96px] flex-col items-center gap-1 rounded-2xl px-3 py-3 text-sm font-medium",
-                  "text-muted-foreground hover:bg-muted/50 hover:text-foreground",
-                  active && "bg-emerald-600 text-white hover:bg-emerald-600 hover:text-white"
+                  "text-muted-foregroun",
+                  active && "bg-emerald-600 text-white"
                 )}
               >
                 <Icon className={cn("h-6 w-6", active ? "text-white" : "text-muted-foreground")} />

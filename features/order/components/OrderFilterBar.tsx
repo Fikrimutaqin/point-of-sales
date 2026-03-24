@@ -47,7 +47,7 @@ export default function OrderFilterBar({
               type="button"
               variant="outline"
               className={cn(
-                "h-11 shrink-0 rounded-2xl! border-border px-4 text-sm font-semibold",
+                "min-w-[100px] shrink-0 rounded-2xl! border-border px-4 font-semibold text-base! h-14",
                 active
                   ? "border-emerald-600 bg-emerald-600 text-white hover:bg-emerald-700 hover:text-white"
                   : "bg-background hover:bg-muted"
