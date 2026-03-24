@@ -14,7 +14,7 @@ export default function ReportSidebar({ value, onChange }: Props) {
     { key: "income", label: "Report Income" },
     { key: "outcome", label: "Report Outcome" },
     { key: "balance", label: "Report Balance" },
-    { key: "best-seller", label: "Report Best seller" },
+    { key: "best-seller", label: "Report Best Seller" },
     { key: "transaction", label: "Report Transaction" },
     { key: "promo", label: "Report Promo" },
   ];
@@ -26,7 +26,7 @@ export default function ReportSidebar({ value, onChange }: Props) {
   };
 
   return (
-    <div className="w-[10%] h-[90vh] overflow-y-scroll border-r-2 fixed top-20 left-24">
+    <div className="w-[10%] h-[90vh] overflow-y-scroll border-r fixed top-20 left-24">
       <p className="text-base py-3 px-3 font-medium bg-background text-secondary-foreground">
         Menu Reporting
       </p>
@@ -39,7 +39,7 @@ export default function ReportSidebar({ value, onChange }: Props) {
               key={it.key}
               type="button"
               variant={isActive ? "secondary" : "outline"}
-              className={`w-full justify-start rounded-full! h-12 font-medium hover:bg-emerald-600 hover:text-white ${
+              className={`w-full justify-start rounded-2xl! h-12 font-medium hover:bg-emerald-600 hover:text-white ${
                 isActive ? "bg-emerald-600 text-background" : ""
               }`}
               aria-pressed={isActive}

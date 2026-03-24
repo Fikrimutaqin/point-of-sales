@@ -10,7 +10,7 @@ export default function ChartPage() {
   return (
     <div className="w-full">
       <ReportSidebar value={active} onChange={(k) => setActive(k as ReportKey)} />
-      <div className="ml-[16%] mr-6 pt-6">
+      <div className="w-full mx-auto pl-48">
         <ReportContent active={active} />
       </div>
     </div>

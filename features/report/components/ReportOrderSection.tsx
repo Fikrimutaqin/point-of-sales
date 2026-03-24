@@ -26,8 +26,8 @@ export default function ReportOrderSection({ className }: { className?: string }
           r.status === "completed"
             ? "bg-emerald-100 text-emerald-700"
             : r.status === "processing"
-            ? "bg-amber-100 text-amber-700"
-            : "bg-red-100 text-red-700";
+              ? "bg-amber-100 text-amber-700"
+              : "bg-red-100 text-red-700";
         return <span className={cn("inline-flex rounded-full px-3 py-1 text-xs font-semibold", tone)}>{r.status}</span>;
       },
       headerClassName: "w-[140px]",
@@ -37,14 +37,12 @@ export default function ReportOrderSection({ className }: { className?: string }
   return (
     <div className={cn("flex flex-col gap-4", className)}>
       <SalesOverview title="Order Overview" totalLabel={totalLabel} totalValue={totalValue} data={orderReportSeries} />
-      <Card className="p-4 rounded-2xl">
-        <DataTable
-          title="Order Report"
-          columns={columns}
-          rows={orderReportRows}
-          getRowKey={(r) => r.id}
-        />
-      </Card>
+      <DataTable
+        title="Order Report"
+        columns={columns}
+        rows={orderReportRows}
+        getRowKey={(r) => r.id}
+      />
     </div>
   );
 }

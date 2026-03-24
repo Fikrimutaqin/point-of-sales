@@ -23,7 +23,7 @@ export default function SidebarSection(props: React.ComponentProps<typeof Sideba
 
   return (
     // Sidebar component
-    <Sidebar collapsible="icon" className="bg-background z-20" {...props}>
+    <Sidebar collapsible="icon" className="bg-background z-50" {...props}>
       <SidebarHeader className="px-3 py-4">
         <div className="flex justify-center">
           <Link
