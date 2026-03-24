@@ -58,7 +58,7 @@ export default function ItemListDetail({
 
       {items.length === 0 ? (
         <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-border py-10 text-center">
-          <div className="mb-3 flex h-12 w-12 items-center justify-center text-white rounded-full bg-emerald-600 hover:bg-emerald-700">
+          <div className="mb-3 flex h-12 w-12 items-center justify-center text-white rounded-full bg-red-600 hover:bg-red-700">
             <ShieldX className="h-5 w-5" />
           </div>
           <p className="text-sm font-medium">Belum ada item</p>

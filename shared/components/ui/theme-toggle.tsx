@@ -5,11 +5,16 @@ import { Button } from "./button";
 import { applyTheme, resolveInitialTheme, storeTheme, ThemeMode } from "@/lib/theme";
 
 export function ThemeToggle() {
-  const [mode, setMode] = useState<ThemeMode>(() => resolveInitialTheme());
+  const [mode, setMode] = useState<ThemeMode>("light");
 
   useEffect(() => {
-    applyTheme(mode);
-  }, [mode]);
+    const init = resolveInitialTheme();
+    applyTheme(init);
+    if (init !== "light") {
+      const t = setTimeout(() => setMode(init), 0);
+      return () => clearTimeout(t);
+    }
+  }, []);
 
   useEffect(() => {
     const stored = typeof window !== "undefined" ? window.localStorage.getItem("theme") : null;
@@ -18,6 +23,7 @@ export function ThemeToggle() {
       const handler = (e: MediaQueryListEvent) => {
         const next: ThemeMode = e.matches ? "dark" : "light";
         setMode(next);
+        applyTheme(next);
       };
       try {
         mql.addEventListener("change", handler);
@@ -33,6 +39,7 @@ export function ThemeToggle() {
   const toggle = () => {
     const next: ThemeMode = mode === "dark" ? "light" : "dark";
     setMode(next);
+    applyTheme(next);
     storeTheme(next);
   };
 

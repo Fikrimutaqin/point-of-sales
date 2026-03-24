@@ -18,7 +18,7 @@ import formatIDR from "@/features/product-best-seller/utils/FormatIDR";
 import type { Props } from "@/features/product-best-seller/types/Props";
 import { defaultItems as defaultItemsData } from "@/features/product-best-seller/services/data/BestSellerItem";
 
-export default function  ProductBestSellerSection({
+export default function ProductBestSellerSection({
   title = "Product Best Seller",
   period,
   onPeriodChange,
@@ -106,10 +106,12 @@ export default function  ProductBestSellerSection({
                       sizes="48px"
                       className="object-cover"
                     />
-                  ) : null}
-                  <div className={cn("absolute inset-0 flex items-center justify-center text-sm font-semibold", top ? "text-white" : "text-emerald-700")}>
-                    {getInitials(p.name)}
-                  </div>
+                  ) : <>
+                    <div className={cn("absolute inset-0 flex items-center justify-center text-sm font-semibold", top ? "text-white" : "text-emerald-700")}>
+                      {getInitials(p.name)}
+                    </div>
+                  </>}
+
                 </div>
 
                 <div className="min-w-0">
