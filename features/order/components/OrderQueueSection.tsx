@@ -7,6 +7,7 @@ import type { Order, OrderFilterKey, OrderStatus } from "@/features/order/types"
 import { defaultOrders } from "@/features/order/services/data";
 import { useMemo, useState } from "react";
 import OrderFilterBar from "./OrderFilterBar";
+import { ShieldX } from "lucide-react";
 
 const statusLabel: Record<OrderStatus, string> = {
   new: "New Order",
@@ -32,7 +33,7 @@ export default function OrderQueueSection({
   seeAllHref = "/order",
   orders = defaultOrders,
   layout = "horizontal",
-  showFilterBar = layout === "grid",
+  showFilterBar = true,
   className,
 }: Props) {
   const [filter, setFilter] = useState<OrderFilterKey>("all");
@@ -66,11 +67,6 @@ export default function OrderQueueSection({
     <div className={cn("w-full flex flex-col gap-3", className)}>
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-semibold">{title}</h2>
-        {layout === "horizontal" ? (
-          <Link href={seeAllHref} className="text-sm font-medium text-emerald-600 hover:underline">
-            See All
-          </Link>
-        ) : null}
       </div>
 
       {showFilterBar ? (
@@ -83,7 +79,9 @@ export default function OrderQueueSection({
         />
       ) : null}
 
-      {layout === "grid" ? (
+      {counts[filter] > 0 ? (
+        <>
+           {layout === "grid" ? (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
           {filteredOrders.map((o) => (
             <OrderCard
@@ -119,6 +117,13 @@ export default function OrderQueueSection({
               className="shrink-0"
             />
           ))}
+        </div>
+      )}
+        </>
+      ) : (
+        <div className="flex flex-col items-center justify-center rounded-xl border border-dashed border-border py-10 text-center">
+          <ShieldX className="h-12 w-12 bg-white  rounded-full! text-red-500" />
+          <p className="text-lg font-semibold">No orders found</p>
         </div>
       )}
     </div>

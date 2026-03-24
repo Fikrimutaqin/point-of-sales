@@ -9,7 +9,7 @@ export default function MenuSection() {
   return (
     <div className="w-full flex flex-col">
       {/* Headline and search, filter */}
-      <div className="flex flex-row justify-between items-center w-full">
+      <div className="flex flex-row justify-between items-center w-full mb-2">
         <div className="text-lg font-semibold">Menu</div>
 
         {/* Search and Filter*/}

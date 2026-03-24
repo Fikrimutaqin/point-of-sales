@@ -54,7 +54,7 @@ export function DashboardHeader() {
       <div className="ml-auto flex items-center gap-4">
         <button
           type="button"
-          className="relative inline-flex h-11 w-11 items-center justify-center rounded-full bg-emerald-100 text-emerald-700 hover:bg-emerald-200"
+          className="relative inline-flex h-11 w-11 items-center justify-center rounded-full bg-emerald-600 text-white hover:bg-emerald-700"
           aria-label="Notifications"
         >
           <Bell className="h-5 w-5" />
